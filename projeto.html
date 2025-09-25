@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Grupos</title>
+    <!-- LINKA o arquivo CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <header class="header">
+        <h1>Descubra se um grupo B é subgrupo de outro grupo A:</h1>
+        <p>Informe grupos</p>
+    </header>
+    
+    <main class="container">
+        <div class="campo">
+            <label for="conjunto">Grupo A (separado por vírgulas):</label>
+            <input type="text" id="conjunto" placeholder="Ex: 1,2,3,4 ou a,b,c,d">
+        </div>
+
+        <div class="campo">
+            <label for="conjunto">Grupo B (separado por vírgulas):</label>
+            <input type="text" id="conjunto" placeholder="Ex: 1,2,3,4 ou a,b,c,d">
+        </div>
+
+        <div class="campo">
+            <label for="conjunto">Adicione o mod (opcional)</label>
+            <input type="text" id="conjunto" placeholder="Ex: 7 para Z7">
+        </div>
+
+        <div class="campo">
+            <label>Marque a operação:</label>
+            <div class="radio-container">
+                <input type="radio" id="somaA" name="operacaoA" value="soma">
+                <label for="somaA">soma</label>
+                <input type="radio" id="multiplicacaoA" name="operacaoA" value="multiplicacao">
+                <label for="multiplicacaoB">multiplicacao</label>
+            </div>
+         </div>
+        
+        <div class="botao-container">
+            <button>Verificar se é subgrupo</button>
+        </div>
+    </main>
+
+</body>
+</html>

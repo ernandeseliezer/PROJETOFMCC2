@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #a4851d, #231ca7, #1b6335, #8718ba);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    padding: 20px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.header {
+    background: rgba(12, 46, 77, 0.7); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 50px;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+}
+
+.header h1 {
+    color: aliceblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+    color: rgb(200, 220, 240);
+    font-family: Arial, sans-serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.25); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.campo {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+    padding: 8px 15px;
+    border-radius: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 6px 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    font-size: 12px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+}
+
+input:focus, textarea:focus {
+    border-color: rgba(12, 46, 77, 0.8);
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 3px rgba(12, 46, 77, 0.1);
+    transform: translateY(-2px);
+}
+
+.botao-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+button {
+    padding: 10px 16px;
+    font-size: 12px;
+    background: rgba(12, 46, 77, 0.9);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+    cursor: pointer;
+    width: auto;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: rgba(20, 60, 100, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.radio-container input[type="radio"] {
+    display: none;
+}
+
+.radio-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-container label:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #fff;
+    box-shadow: inset 0 0 0 4px #fff;
+    transition: all 0.3s ease;
+}
+
+
+.radio-container input[type="radio"]:checked + label:before {
+    background-color: #2196F3;
+    box-shadow: inset 0 0 0 4px #fff;
+    border-color: #2196F3;
+}
