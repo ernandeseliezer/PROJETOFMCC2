@@ -160,3 +160,32 @@ button:active {
     box-shadow: inset 0 0 0 4px #fff;
     border-color: #2196F3;
 }
+
+.container-resultado {
+    max-width: 500px;
+    margin: 20px auto 0;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+    transition: none;
+    opacity: 1;
+}
+
+.container-resultado h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: rgba(12, 46, 77, 0.9);
+}
+
+.container-resultado p {
+    font-size: 14px;
+    color: #f0f8ff;
+    padding: 10px;
+    border-radius: 10px;
+}
