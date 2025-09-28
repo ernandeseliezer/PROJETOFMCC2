@@ -1,4 +1,4 @@
-# PROJETOFMCC2
+# PROJETO FINAL FMCC2
 
 **Participantes:** Ana Cecília Lima, André Filipe, Carlos Emanoel, Ernandes Eliézer, Flávio Domingues, Guilherme Araújo
 
