@@ -1,47 +1,53 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, request, jsonify  # Importa o Flask para criar a API, request para receber dados e jsonify para retornar respostas em JSON
+from flask_cors import CORS  # Permite que qualquer front-end acesse a API, evitando bloqueios de segurança do navegador
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__)  # Inicializa a aplicação Flask
+CORS(app)  # Ativa o CORS para liberar acesso externo
 
 # Função que aplica a operação entre dois elementos, considerando módulo opcional
 def aplicar_operacao(a, b, operacao, mod=None):
+    # Escolhe a operação matemática conforme o símbolo passado
     if operacao == "+":
         resultado = a + b
     elif operacao == "*":
         resultado = a * b
     else:
-        return None
+        return None  # Se operação não reconhecida, retorna None
     
+    # Se houver módulo, aplica resto da divisão (operação modular)
     if mod is not None:
         resultado %= mod
     return resultado
 
-# 1. Fechamento
+# Função que verifica se o conjunto é fechado sob a operação
 def fechado(grupo, operacao, mod):
+    # Para cada par de elementos, aplica a operação
     for a in grupo:
         for b in grupo:
+            # Se algum resultado não estiver no conjunto, não é fechado
             if aplicar_operacao(a, b, operacao, mod) not in grupo:
                 return False
-    return True
+    return True  # Todos os resultados ficaram no conjunto, então é fechado
 
-# 2. Identidade
+# Função que encontra o elemento identidade do grupo
 def identidade(grupo, operacao, mod):
+    # Procura um elemento que não altere nenhum outro ao ser combinado
     for e in grupo:
         if all(aplicar_operacao(a, e, operacao, mod) == a and 
                aplicar_operacao(e, a, operacao, mod) == a for a in grupo):
-            return e
-    return None
+            return e  # Encontrou a identidade
+    return None  # Não existe identidade
 
-# 3. Inverso
+# Função que verifica se todos os elementos possuem inverso
 def inverso(grupo, operacao, elemento_identidade, mod):
+    # Para cada elemento, verifica se existe algum inverso que volte à identidade
     for a in grupo:
         if not any(aplicar_operacao(a, b, operacao, mod) == elemento_identidade and 
-                  aplicar_operacao(b, a, operacao, mod) == elemento_identidade for b in grupo):
-            return False
-    return True
+                   aplicar_operacao(b, a, operacao, mod) == elemento_identidade for b in grupo):
+            return False  # Algum elemento não tem inverso
+    return True  # Todos os elementos possuem inverso
 
-# Função para testar se um conjunto é grupo
+# Função principal para testar se um conjunto forma um grupo
 def teste_grupo(grupo, operacao, mod, nome):
     resultado = {
         "nome": nome,
@@ -107,7 +113,7 @@ def teste_subgrupo(grupo_G, operacao_G, mod_G, grupo_H, operacao_H, mod_H, e_G, 
     
     resultado["mensagens"].append("Testando se H é subgrupo de G:")
     
-    # 1. Contenção
+    # 1. Contenção: todos elementos de H estão em G?
     contido = all(x in grupo_G for x in grupo_H)
     resultado["testes"]["contencao"] = contido
     resultado["mensagens"].append(f"Todos os elementos de H estão em G: {'✅' if contido else '❌'}")
@@ -117,7 +123,7 @@ def teste_subgrupo(grupo_G, operacao_G, mod_G, grupo_H, operacao_H, mod_H, e_G, 
     resultado["testes"]["fechamento_H"] = fechado_H
     resultado["mensagens"].append(f"H é fechado sob sua operação: {'✅' if fechado_H else '❌'}")
     
-    # 3. Verificar se as operações e módulos são iguais
+    # 3. Operação e módulo iguais aos de G?
     mesma_operacao = operacao_G == operacao_H
     mesmo_modulo = mod_G == mod_H
     resultado["testes"]["mesma_operacao"] = mesma_operacao
@@ -153,12 +159,13 @@ def teste_subgrupo(grupo_G, operacao_G, mod_G, grupo_H, operacao_H, mod_H, e_G, 
     
     return resultado
 
+# Rota principal da API para verificar grupos e subgrupos
 @app.route('/verificar_grupos', methods=['POST'])
 def verificar_grupos():
     try:
-        data = request.json
+        data = request.json  # Recebe os dados enviados pelo front-end
         
-        # Extrair dados dos grupos
+        # Extrair dados do grupo G
         elementos_G = data['grupoG']['elementos']
         operacao_G = data['grupoG']['operacao']
         mod_G = data['grupoG']['modulo']
@@ -167,6 +174,7 @@ def verificar_grupos():
         else:
             mod_G = int(mod_G)
         
+        # Extrair dados do grupo H
         elementos_H = data['grupoH']['elementos']
         operacao_H = data['grupoH']['operacao']
         mod_H = data['grupoH']['modulo']
@@ -175,7 +183,7 @@ def verificar_grupos():
         else:
             mod_H = int(mod_H)
         
-        # Testar os grupos
+        # Testar se G e H são grupos
         resultado_G = teste_grupo(elementos_G, operacao_G, mod_G, "G")
         resultado_H = teste_grupo(elementos_H, operacao_H, mod_H, "H")
         
@@ -186,6 +194,7 @@ def verificar_grupos():
             resultado_G["identidade"], resultado_H["identidade"]
         )
         
+        # Retornar resultado completo
         return jsonify({
             "sucesso": True,
             "grupoG": resultado_G,
@@ -199,10 +208,12 @@ def verificar_grupos():
             "erro": f"Erro ao processar os dados: {str(e)}"
         }), 400
 
+# Health check simples para garantir que a API está funcionando
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({"status": "ok", "message": "API funcionando corretamente"})
 
+# Ponto de entrada da aplicação
 if __name__ == '__main__':
     print("🚀 Iniciando API do Verificador de Grupos...")
     print("📡 Servidor rodando em: http://localhost:5000")
